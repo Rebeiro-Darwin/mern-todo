@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import AppNavbar from './components/AppNavbar'
-import ShoppingList from "./components/ShoppingList"
 import store from './store';
-import  { Provider} from 'react-redux'
-
+import  {Provider} from 'react-redux'
+import ShoppingList from "./components/ShoppingList"
 import "bootstrap/dist/css/bootstrap.min.css"
 import './App.css';
 
