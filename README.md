@@ -1,4 +1,4 @@
-# mern-todo
+# Todo Web App
 A Todo Web App using MERN Stack
 
 
