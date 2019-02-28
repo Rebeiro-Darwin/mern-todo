@@ -1,43 +1,47 @@
-const express = require('express')
+const express = require("express");
 const router = express.Router();
-const Item = require('../../models/items')
+const Item = require("../../models/items");
 
-//  api/items 
+//  api/items
 // get all Items
-router.route('/')
+router
+  .route("/")
   .get((req, res) => {
     Item.find({})
       .sort({
         date: -1
       })
-      .then((items) => {
-        res.json(items)
-      })
+      .then(items => {
+        res.json(items);
+      });
   })
   .post((req, res) => {
     const newItem = new Item({
       name: req.body.name
-    })
-    newItem.save()
-      .then((Item) => {
-        res.json(Item)
+    });
+    newItem
+      .save()
+      .then(Item => {
+        res.json(Item);
       })
-      .catch((err) => {
-        res.send(err)
+      .catch(err => {
+        res.send(err);
       });
-  })
+  });
 
-router.route('/:id')
-  .delete((req, res) => {
-    Item.findById(req.params.id)
-      .then((item) => item.remove())
-      .then(() => res.json({
+router.route("/:id").delete((req, res) => {
+  Item.findById(req.params.id)
+    .then(item => item.remove())
+    .then(() =>
+      res.status(200).json({
         success: true
-      }))
-      .catch((err) => res.status(400).json({
-        success: false
-      }))}
+      })
     )
-
+    .catch(err =>
+      res.status(400).json({
+        success: false
+      })
+    );
+});
 
 module.exports = router;
