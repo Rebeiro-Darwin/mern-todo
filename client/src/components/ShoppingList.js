@@ -5,10 +5,10 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getItems, deleteItem } from "../actions/itemActions";
 import PropTypes from "prop-types";
+
 class ShoppingList extends React.Component {
   componentDidMount() {
-    //this.props.getItems();
-    console.log(this.props);
+    setTimeout(this.props.getItems(), 1000);
   }
   onDeleteClick = id => {
     this.props.deleteItem(id);
@@ -20,15 +20,15 @@ class ShoppingList extends React.Component {
       <Container>
         <ListGroup>
           <TransitionGroup className="shopping-list">
-            {items.map(({ id, name }) => (
-              <CSSTransition key={id} timeout={1000} classNames="fade">
+            {items.map(({ _id, name }) => (
+              <CSSTransition key={_id} timeout={1000} classNames="fade">
                 <ListGroupItem>
                   <Button
                     style={{ marginRight: "1rem" }}
                     className="remove-btn"
                     color="danger"
                     size="sm"
-                    onClick={this.onDeleteClick.bind(this, id)}
+                    onClick={this.onDeleteClick.bind(this, _id)}
                   >
                     &times;
                   </Button>
