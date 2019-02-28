@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
+const mongoURI = require("./config/keys");
 app.use(bodyParser.json());
 app.route("/").get((req, res) => {
   res.send("Ok");
@@ -11,7 +12,7 @@ app.route("/").get((req, res) => {
 const items = require("./routers/api/items");
 mongoose.Promise = global.Promise;
 mongoose
-  .connect("mongodb://localhost/mern_todo", {
+  .connect(mongoURI, {
     useNewUrlParser: true
   })
   .then(() => {
