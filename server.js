@@ -5,9 +5,6 @@ const path = require("path");
 const app = express();
 const mongoURI = require("./config/keys");
 app.use(bodyParser.json());
-app.route("/").get((req, res) => {
-  res.send("Ok");
-});
 
 const items = require("./routers/api/items");
 mongoose.Promise = global.Promise;
@@ -21,14 +18,7 @@ mongoose
   .catch(err => {
     console.log(err);
   });
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
 app.use("/api/items", items);
 
 if (process.env.NODE_ENV === "production") {
