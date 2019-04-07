@@ -6,11 +6,11 @@ const app = express();
 const mongoURI = require("./config/keys");
 app.use(bodyParser.json());
 
-const items = require("./routers/api/items");
 mongoose.Promise = global.Promise;
 mongoose
   .connect(mongoURI, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useCreateIndex: true
   })
   .then(() => {
     console.log("MongoDB connected");
@@ -19,7 +19,8 @@ mongoose
     console.log(err);
   });
 
-app.use("/api/items", items);
+app.use("/api/items", require("./routers/api/items"));
+app.use("/api/users", require("./routers/api/users"));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
