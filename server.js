@@ -19,8 +19,9 @@ mongoose
     console.log(err);
   });
 
-app.use("/api/items", require("./routers/api/items"));
 app.use("/api/users", require("./routers/api/users"));
+app.use("/api/items", require("./routers/api/items"));
+app.use("/api/auth", require("./routers/api/auth"));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
