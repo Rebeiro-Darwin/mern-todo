@@ -6,8 +6,11 @@ import ShoppingList from "./components/ShoppingList";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import ItemModal from "./components/ItemModal";
-
+import { loadUser } from "./actions/authAction";
 class App extends Component {
+  componentDidMount() {
+    store.dispatch(loadUser());
+  }
   render() {
     return (
       <Provider store={store}>
