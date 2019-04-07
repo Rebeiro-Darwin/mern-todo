@@ -3,6 +3,7 @@ const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const auth = require("../../middleware/auth");
 router
   .route("/")
   .get((req, res) => {
@@ -39,4 +40,11 @@ router
       });
     });
   });
+
+router.get("/user", auth, (req, res) => {
+  console.log(req.user);
+  User.findById(req.user.id)
+    .select("-password")
+    .then(user => res.json(user));
+});
 module.exports = router;

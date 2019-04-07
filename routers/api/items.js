@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Item = require("../../models/items");
-
+const auth = require("../../middleware/auth");
 //  api/items
 // get all Items
 router
@@ -15,7 +15,7 @@ router
         res.json(items);
       });
   })
-  .post((req, res) => {
+  .post(auth, (req, res) => {
     const newItem = new Item({
       name: req.body.name
     });
@@ -29,7 +29,7 @@ router
       });
   });
 
-router.route("/:id").delete((req, res) => {
+router.route("/:id").delete(auth, (req, res) => {
   Item.findById(req.params.id)
     .then(item => item.remove())
     .then(() =>

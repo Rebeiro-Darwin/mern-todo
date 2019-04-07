@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 class ShoppingList extends React.Component {
   componentDidMount() {
-    setTimeout(this.props.getItems(), 1000);
+    this.props.getItems();
   }
   onDeleteClick = id => {
     this.props.deleteItem(id);
