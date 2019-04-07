@@ -1,10 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
-const mongoURI = require("./config/keys");
-app.use(bodyParser.json());
+const config = require("config");
+const mongoURI = config.get("mongoURI");
+app.use(express.json());
 
 mongoose.Promise = global.Promise;
 mongoose
