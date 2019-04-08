@@ -1,5 +1,4 @@
-
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Collapse,
   Navbar,
@@ -13,13 +12,13 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem
-} from 'reactstrap';
-
+} from "reactstrap";
+import RegisterModal from "./RegisterModal";
+import Logout from "./Logout";
 class AppNavbar extends Component {
   constructor(props) {
     super(props);
 
-   
     this.state = {
       isOpen: false
     };
@@ -28,50 +27,46 @@ class AppNavbar extends Component {
     this.setState({
       isOpen: !this.state.isOpen
     });
-  }
-
+  };
 
   render() {
     return (
       <div>
         <Navbar color="dark" dark expand="sm" className="mb-5">
-        <Container>
-        <NavbarBrand href="/">To.Do</NavbarBrand>
-        <NavbarToggler onClick={this.toggle} />
-        <Collapse isOpen={this.state.isOpen} navbar>
-        <Nav navbar>
-            <NavItem>
-                <NavLink href="/">Home</NavLink>
-            </NavItem>
-        </Nav>
-        <Nav className="ml-auto" navbar>
-              <NavItem>
-               
-                <NavLink href="/login">Login</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/register">Register</NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
-          </Collapse>
-        </Container>
+          <Container>
+            <NavbarBrand href="/">To.Do</NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav navbar>
+                <NavItem>
+                  <NavLink href="/">Home</NavLink>
+                </NavItem>
+              </Nav>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href="/login">Login</NavLink>
+                </NavItem>
+                <NavItem>
+                  <RegisterModal />
+                </NavItem>
+                <NavItem>
+                  <Logout />
+                </NavItem>
+
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    Options
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>Option 1</DropdownItem>
+                    <DropdownItem>Option 2</DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>Reset</DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </Nav>
+            </Collapse>
+          </Container>
         </Navbar>
       </div>
     );
@@ -79,4 +74,3 @@ class AppNavbar extends Component {
 }
 
 export default AppNavbar;
-
