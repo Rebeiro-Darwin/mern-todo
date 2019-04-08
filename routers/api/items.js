@@ -16,6 +16,7 @@ router
       });
   })
   .post(auth, (req, res) => {
+    console.log(req.body);
     const newItem = new Item({
       name: req.body.name
     });

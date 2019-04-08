@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 import {
   Collapse,
   Navbar,
@@ -15,14 +18,15 @@ import {
 } from "reactstrap";
 import RegisterModal from "./RegisterModal";
 import Logout from "./Logout";
+import Login from "./Login";
 class AppNavbar extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    isOpen: false
+  };
+  static propTypes = {
+    auth: PropTypes.object.isRequired
+  };
 
-    this.state = {
-      isOpen: false
-    };
-  }
   toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen
@@ -30,6 +34,30 @@ class AppNavbar extends Component {
   };
 
   render() {
+    const { isAuthenticated, user } = this.props.auth;
+    const authLinks = (
+      <React.Fragment>
+        <NavItem>
+          <span className="navbar-text mr-3">
+            <strong>{user ? `Welcome ${user.name}` : ""}</strong>
+          </span>
+        </NavItem>
+        <NavItem>
+          <Logout />
+        </NavItem>
+      </React.Fragment>
+    );
+
+    const guestLinks = (
+      <React.Fragment>
+        <NavItem>
+          <Login />
+        </NavItem>
+        <NavItem>
+          <RegisterModal />
+        </NavItem>
+      </React.Fragment>
+    );
     return (
       <div>
         <Navbar color="dark" dark expand="sm" className="mb-5">
@@ -43,27 +71,7 @@ class AppNavbar extends Component {
                 </NavItem>
               </Nav>
               <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <NavLink href="/login">Login</NavLink>
-                </NavItem>
-                <NavItem>
-                  <RegisterModal />
-                </NavItem>
-                <NavItem>
-                  <Logout />
-                </NavItem>
-
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                    Options
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem>Option 1</DropdownItem>
-                    <DropdownItem>Option 2</DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>Reset</DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                {isAuthenticated ? authLinks : guestLinks}
               </Nav>
             </Collapse>
           </Container>
@@ -73,4 +81,10 @@ class AppNavbar extends Component {
   }
 }
 
-export default AppNavbar;
+const mapStateToProps = ({ auth }) => ({
+  auth: auth
+});
+export default connect(
+  mapStateToProps,
+  null
+)(AppNavbar);
