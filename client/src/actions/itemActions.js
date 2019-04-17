@@ -19,13 +19,14 @@ export const getItems = () => dispatch => {
 
 export const addItem = item => (dispatch, getState) => {
   console.log(item);
+  // axios.request({
+  //   url: "/api/items",
+  //   method: "post",
+  //   data: item,
+  //   headers: tokenConfig().headers
+  // });
   axios
-    .request({
-      url: "/api/items",
-      method: "post",
-      data: item,
-      headers: tokenConfig(getState).headers
-    })
+    .post("/api/items", item, tokenConfig(getState))
     .then(res => dispatch({ type: ADD_ITEM, payload: res.data }))
     .catch(err =>
       dispatch(returnErrors(err.response.data, err.response.status))
